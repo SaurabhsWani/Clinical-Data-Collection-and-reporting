@@ -20,7 +20,7 @@ public class Patient {
 	private String lastName;
 	private int age;
 
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL,mappedBy = "patient")
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "patient")
 	private List<ClinicalData> clinicalData;
 
 	public int getId() {

@@ -2,6 +2,7 @@ package com.saurbah.clinicals.entities;
 
 import java.sql.Timestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Entity;
@@ -15,17 +16,17 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "clinicaldata")
-@JsonIgnoreProperties({ "patient" })
 public class ClinicalData {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String componentName;
 	private String componentValue;
-	private Timestamp measureDateTime;
+	private Timestamp measuredDateTime;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "patient_id", nullable = false)
+	@JsonIgnore
 	private Patient patient;
 
 	public int getId() {
@@ -53,11 +54,11 @@ public class ClinicalData {
 	}
 
 	public Timestamp getMeasureDateTime() {
-		return measureDateTime;
+		return measuredDateTime;
 	}
 
 	public void setMeasureDateTime(Timestamp measureDateTime) {
-		this.measureDateTime = measureDateTime;
+		this.measuredDateTime = measureDateTime;
 	}
 
 	public Patient getPatient() {
@@ -71,7 +72,7 @@ public class ClinicalData {
 	@Override
 	public String toString() {
 		return "ClinicalData [id=" + id + ", componentName=" + componentName + ", componentValue=" + componentValue
-				+ ", measureDateTime=" + measureDateTime + ", patient=" + patient + "]";
+				+ ", measureDateTime=" + measuredDateTime + ", patient=" + patient + "]";
 	}
 
 }
